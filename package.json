@@ -1,0 +1,15 @@
+{
+  "name": "mobile-automation",
+  "version": "1.0.0",
+  "description": "Mobile Theme Automation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Leandro L",
+  "license": "ISC",
+  "dependencies": {
+    "chai-colors": "^1.0.1",
+    "cypress": "^13.2.0"
+  }
+}
