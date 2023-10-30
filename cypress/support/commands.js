@@ -13,7 +13,7 @@ Cypress.Commands.addAll({
       cy.get('#crn-input-username').type(usuario)
       cy.get('#crn-input-password').type(senha)
       cy.get('form').contains('Entrar').click()
-      cy.contains('h1', 'Pagina inicial').should('be.visible')
+      cy.contains('h1', 'Views').should('be.visible')
     })
   },
 
@@ -131,8 +131,11 @@ Cypress.Commands.addAll({
   },
 
   itemIcone(cor) {
-    let icone_and_font = func.singleGet(`#item-${cor} > i`);
-    icone_and_font.should("have.css", "color").and("be.colored", func.getHexadecimal(cor));
+    const seletores = [`#item-${cor} > i`,`#item-${cor} > h2`]
+
+    seletores.forEach(function(element){
+      func.singleGet(element).should("have.css", "color").and("be.colored", func.getHexadecimal(cor));
+    })
   },
 
   textInputIcon(cor) {
