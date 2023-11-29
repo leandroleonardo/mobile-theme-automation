@@ -35,7 +35,7 @@ Cypress.Commands.addAll({
     estrela.should("have.css", "color").and("be.colored", func.getHexadecimal(cor));
   },
 
-  botao(cor) {
+  botao(cor, gradiente) {
     if (func.gradientes.includes(tema)) {
       if (tema === 'aquamarine' && ['claro', 'informacao'].includes(cor)) {
         func.singleGet(`#button-${cor} > span`)
@@ -45,23 +45,20 @@ Cypress.Commands.addAll({
         func.singleGet(`#button-${cor}`)
           .should('have.css', 'background')
           .then($attr => {
-            let colors = func.getCSSColors($attr);
+
+            let colors = func.getCSSColors($attr), colorsJson = [cor, gradiente]
 
             colors.forEach((color, index) => colors[index] = 'rgb' + color.substring(0, func.endOfString(color, ')')));
-            let expetedColor = colors[0];
 
-            if (tema === 'cerulean' || tema === 'spacelab')
-              expetedColor = colors[1];
+            for (let i = 0; i < colorsJson.length; i++) {
+              expect(func.ConvertRGBtoHex(colors[i])).to.eq(func.getHexadecimal(colorsJson[i]));
+            }
 
-            expect(func.ConvertRGBtoHex(expetedColor)).to.eq(func.getHexadecimal(cor));
           });
       }
     } else {
 
       let property = 'background-color';
-
-      if (tema === 'dsgov' && cor === 'secundario')
-        property = 'color';
 
       func.singleGet(`#button-${cor}`)
         .should('have.css', property)
@@ -103,19 +100,18 @@ Cypress.Commands.addAll({
       .and("be.colored", func.getHexadecimal(cor));
   },
 
-  aba(cor) {
+  aba(cor, gradiente) {
     if (func.gradientes.includes(tema)) {
       func.singleGet(`#aba-${cor}`).parent('li')
         .should('have.css', 'background')
         .then($attr => {
-          let colors = func.getCSSColors($attr);
+          let colors = func.getCSSColors($attr), colorsJson = [cor, gradiente]
 
           colors.forEach((color, index) => colors[index] = 'rgb' + color.substring(0, func.endOfString(color, ')')));
-          let expetedColor = colors[0];
-          if (tema === 'cerulean' || tema === 'spacelab')
-            expetedColor = colors[1];
 
-          expect(func.ConvertRGBtoHex(expetedColor)).to.eq(func.getHexadecimal(cor));
+          for (let i = 0; i < colorsJson.length; i++) {
+            expect(func.ConvertRGBtoHex(colors[i])).to.eq(func.getHexadecimal(colorsJson[i]));
+          }
         });
     } else {
 
@@ -131,19 +127,42 @@ Cypress.Commands.addAll({
   },
 
   itemIcone(cor) {
-    const seletores = [`#item-${cor} > i`,`#item-${cor} > h2`]
+    const seletores = [`#item-${cor} > i`, `#item-${cor} > h2`]
 
-    seletores.forEach(function(element){
+    seletores.forEach(function (element) {
       func.singleGet(element).should("have.css", "color").and("be.colored", func.getHexadecimal(cor));
     })
   },
 
-  textInputIcon(cor) {
-    let icone_and_font = func.singleGet(`#texto-botao-${cor} > i`);
-    icone_and_font.should("have.css", "color").and("be.colored", func.getHexadecimal(cor));
+  textInputIcon(cor, gradiente) {
+
+    if (func.gradientes.includes(tema)) {
+      func.singleGet(`#texto-botao-${cor}`)
+        .should('have.css', 'background')
+        .then($attr => {
+
+          let colors = func.getCSSColors($attr), colorsJson = [cor, gradiente]
+
+          colors.forEach((color, index) => colors[index] = 'rgb' + color.substring(0, func.endOfString(color, ')')));
+
+          for (let i = 0; i < colorsJson.length; i++) {
+            expect(func.ConvertRGBtoHex(colors[i])).to.eq(func.getHexadecimal(colorsJson[i]));
+          }
+
+        })
+    } else {
+
+      for (let j = 0; j <= 1; j++) {
+        func.singleGet(`#texto-botao-${cor}`)
+          .should("have.css", "background-color").and("be.colored", func.getHexadecimal(cor));
+        func.activeFallBack(fallback);
+      }
+
+    }
   },
 
-  deslizar(cor) {
+  deslizar(cor, gradiente) {
+
     if (func.gradientes.includes(tema)) {
       if (tema === 'aquamarine' && ['claro', 'informacao'].includes(cor)) {
         func.singleGet(`#crn-button-${cor} > i`)
@@ -153,14 +172,13 @@ Cypress.Commands.addAll({
         func.singleGet(`#crn-button-${cor}`)
           .should('have.css', 'background')
           .then($attr => {
-            let colors = func.getCSSColors($attr);
+            let colors = func.getCSSColors($attr), colorsJson = [cor, gradiente]
 
             colors.forEach((color, index) => colors[index] = 'rgb' + color.substring(0, func.endOfString(color, ')')));
-            let expetedColor = colors[0];
-            if (tema === 'cerulean' || tema === 'spacelab')
-              expetedColor = colors[1];
 
-            expect(func.ConvertRGBtoHex(expetedColor)).to.eq(func.getHexadecimal(cor));
+            for (let i = 0; i < colorsJson.length; i++) {
+              expect(func.ConvertRGBtoHex(colors[i])).to.eq(func.getHexadecimal(colorsJson[i]));
+            }
           });
       }
     } else {

@@ -9,7 +9,7 @@ describe(`${temaFormatado} - Componente "${component}"`, () => {
 
     cores.forEach((cor) => {
         it(`${cor.nome}`, () => {
-            cy.aba(cor.id);
+            cy.aba(cor.id, cor.id_grad);
         });
     });
 });
