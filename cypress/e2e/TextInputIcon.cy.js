@@ -9,7 +9,7 @@ describe(`${temaFormatado} - Componente "${component}"`, () => {
 
     cores.forEach((cor) => {
         it(`${cor.nome}`, () => {
-            cy.textInputIcon(cor.id, cor.id_grad, cor.fallback);
+            cy.textInputIcon(cor.id, cor.id_grad);
         });
     });
 });

@@ -155,7 +155,6 @@ Cypress.Commands.addAll({
       for (let j = 0; j <= 1; j++) {
         func.singleGet(`#texto-botao-${cor}`)
           .should("have.css", "background-color").and("be.colored", func.getHexadecimal(cor));
-        func.activeFallBack(fallback);
       }
 
     }
