@@ -1,7 +1,7 @@
-import {cores, temaFormatado} from '../support/helper-functions';
+import {cores, temaFormatado} from '../../support/helper-functions';
 const component = 'Ícone';
 
-describe(`${temaFormatado} - Componente "${component}"`, () => {
+describe(`${temaFormatado} - Cor do componente "${component}"`, () => {
     
     before(() => {
         cy.acesso(component)

@@ -1,12 +1,11 @@
-import {cores, temaFormatado} from '../support/helper-functions';
+import {cores, temaFormatado} from '../../support/helper-functions';
 const component = 'Caixa de checagem';
 const simplificado = true;
 
-describe(`${temaFormatado} - Componente "${component}"`, () => {
+describe(`${temaFormatado} - Cor do componente "${component}"`, () => {
     
     before(() => {
         cy.acesso(component)
-        cy.wait(1000)
     })
 
     cores.forEach((cor) => {

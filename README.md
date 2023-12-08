@@ -2,7 +2,7 @@
 
 Automação de tema mobile.
 
-### Pré-requisitos
+### 📓 Pré-requisitos
 
  <a href="https://nodejs.org/en/download">Nodejs</a><br>
  <a href="https://code.visualstudio.com/Download">VsCode</a>
@@ -19,7 +19,7 @@ npm i
 
 ### 🖥️ Configurações
 ---
-<b>| Passo 1: 
+<br><b>| Passo 1: 
 Importação do projeto de tema</b>
 
 Importe o seguinte projeto para IDE: <a href="https://github.com/leandroleonardo/cron-themes">cron-theme</a>. Após importá-lo, selecione o tema que será testado e execute-o. 
@@ -38,4 +38,10 @@ npx cypress run
 Comando para abrir a interface do Cypress: 
 ```
 npx cypress open
+```
+
+Comando para gerar mochawesome separados:
+```
+npx cypress run --spec "cypress/e2e/cores" --reporter-options "reportDir=cypress/reports/cores"; 
+npx cypress run --spec "cypress/e2e/fallbacks" --reporter-options "reportDir=cypress/reports/fallbacks"
 ```

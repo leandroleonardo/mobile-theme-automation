@@ -1,5 +1,6 @@
 const temas = require("../fixtures/temas.json");
 const temaAtual = Cypress.env("tema");
+const time_wait = Cypress.env("time_wait");
 export const temaFormatado = Cypress.env('tema').charAt(0).toUpperCase() + Cypress.env('tema').slice(1);
 
 export const gradientes = [
@@ -12,22 +13,26 @@ export const gradientes = [
 ];
 
 export const cores = [
-  { nome: 'Padrão do tema', id: 'padrao-do-tema', id_grad: 'sc-padrao-do-tema', fallback:'--colorDefault40', fallback_grad:'--colorDefault'},
-  { nome: 'Secundário', id: 'secundario', id_grad: 'sc-secundario', fallback:'--colorPrimary40' ,fallback_grad: '--colorPrimary'},
-  { nome: 'Sucesso', id: 'sucesso', id_grad: 'sc-sucesso', fallback:'--colorSuccess40',fallback_grad:'--colorSuccess'},
-  { nome: 'Informação', id: 'informacao', id_grad: 'sc-informacao',fallback:'--colorCalm40', fallback_grad:'--colorCalm' },
-  { nome: 'Aviso', id: 'aviso', id_grad: 'sc-aviso', fallback:'--colorWarning40', fallback_grad:'--colorWarning'},
-  { nome: 'Perigo', id: 'perigo', id_grad: 'sc-perigo', fallback:'--colorDanger40', fallback_grad: '--colorDanger'},
-  { nome: 'Claro', id: 'claro', id_grad: 'sc-claro', fallback:'--colorLight40',fallback_grad:'--colorLight'},
-  { nome: 'Real', id: 'real', id_grad: 'sc-real', fallback:'--colorRoyal40',fallback_grad: '--colorRoyal'},
-  { nome: 'Escuro', id: 'escuro', id_grad: 'sc-escuro', fallback:'--colorDark40', fallback_grad:'--colorDark'},
-  { nome: 'Estável', id: 'estavel', id_grad: 'sc-estavel', fallback:'--colorStable40', fallback_grad:'--colorEstable'}
+  { nome: 'Padrão do tema', id: 'padrao-do-tema', id_grad: 'sc-padrao-do-tema', fallback: '--colorDefault40', fallback_grad: '--colorDefault' },
+  { nome: 'Secundário', id: 'secundario', id_grad: 'sc-secundario', fallback: '--colorPrimary40', fallback_grad: '--colorPrimary' },
+  { nome: 'Sucesso', id: 'sucesso', id_grad: 'sc-sucesso', fallback: '--colorSuccess40', fallback_grad: '--colorSuccess' },
+  { nome: 'Informação', id: 'informacao', id_grad: 'sc-informacao', fallback: '--colorCalm40', fallback_grad: '--colorCalm' },
+  { nome: 'Aviso', id: 'aviso', id_grad: 'sc-aviso', fallback: '--colorWarning40', fallback_grad: '--colorWarning' },
+  { nome: 'Perigo', id: 'perigo', id_grad: 'sc-perigo', fallback: '--colorDanger40', fallback_grad: '--colorDanger' },
+  { nome: 'Claro', id: 'claro', id_grad: 'sc-claro', fallback: '--colorLight40', fallback_grad: '--colorLight' },
+  { nome: 'Real', id: 'real', id_grad: 'sc-real', fallback: '--colorRoyal40', fallback_grad: '--colorRoyal' },
+  { nome: 'Escuro', id: 'escuro', id_grad: 'sc-escuro', fallback: '--colorDark40', fallback_grad: '--colorDark' },
+  { nome: 'Estável', id: 'estavel', id_grad: 'sc-estavel', fallback: '--colorStable40', fallback_grad: '--colorEstable' }
 ];
 
-export function activeFallBack(fallback) {
-  cy.window().then((win) => {
-    win.document.documentElement.style.setProperty(fallback, 'initial');
-  });
+export function activeFallBack(type) {
+  type = type === 'gradient' &&  gradientes.includes(temaAtual) ? 'gradient' : ''
+  cores.forEach(cor => {
+    cy.window().then((win) => {
+      win.document.documentElement.style.setProperty(type === 'gradient' ? cor.fallback_grad : cor.fallback, 'initial');
+    });
+  })
+  cy.wait(time_wait)
 }
 
 export function getHexadecimal(cor) {
@@ -81,7 +86,7 @@ export function getOcurrence(string, subString, index) {
 }
 
 export function getCSSColors(string) {
-  
+
   let start = endOfString(string, 'linear-gradient(');
   let end = string.indexOf(') repeat');
   let final = string.substring(start, end).split('rgb');

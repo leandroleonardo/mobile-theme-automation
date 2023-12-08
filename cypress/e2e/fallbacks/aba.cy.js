@@ -1,10 +1,11 @@
-import {cores, temaFormatado} from '../support/helper-functions';
+import {cores, temaFormatado, activeFallBack} from '../../support/helper-functions';
 const component = 'Abas';
 
-describe(`${temaFormatado} - Componente "${component}"`, () => {
+describe(`${temaFormatado} - Fallback do componente "${component}"`, () => {
     
     before(() => {
         cy.acesso(component)
+        activeFallBack('gradient')
     })
 
     cores.forEach((cor) => {

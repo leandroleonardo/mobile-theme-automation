@@ -1,5 +1,6 @@
 import * as func from './helper-functions';
 import chaiColors from 'chai-colors'
+const time_wait = Cypress.env("time_wait");
 
 const tema = Cypress.env('tema');
 
@@ -23,11 +24,13 @@ Cypress.Commands.addAll({
 
     if (func.getViewByComponent(pagina) === 1) {
       cy.visit('/logged/form1')
+      cy.contains('h1', 'Form1').should('be.visible')
     }
     else if (func.getViewByComponent(pagina) === 2) {
       cy.visit('/logged/form2')
+      cy.contains('h1', 'Form2').should('be.visible')
     }
-
+    cy.wait(time_wait)
   },
 
   avaliacao(cor) {
@@ -78,13 +81,7 @@ Cypress.Commands.addAll({
   },
 
   checkbox(cor) {
-
     let property = 'background-color';
-    if (tema === 'aquamarine')
-      property = 'background';
-    else if (tema === 'dsgov')
-      property = 'border-color';
-
     cy.get(`#checkbox-${cor}`)
       .then($els => {
         const win = $els[0].ownerDocument.defaultView
