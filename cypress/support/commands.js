@@ -8,29 +8,18 @@ chai.use(chaiColors)
 
 Cypress.Commands.addAll({
 
-  sessao(usuario, senha) {
-    cy.session((usuario, senha), () => {
-      cy.visit('/login')
-      cy.get('#crn-input-username').type(usuario)
-      cy.get('#crn-input-password').type(senha)
-      cy.get('form').contains('Entrar').click()
-      cy.contains('h1', 'Views').should('be.visible')
-    })
-  },
-
   acesso(pagina) {
 
-    cy.sessao('admin', 'admin')
-
     if (func.getViewByComponent(pagina) === 1) {
-      cy.visit('/logged/form1')
-      cy.contains('h1', 'Form1').should('be.visible')
+      cy.url().then((url) => {
+        if (!url.includes('/public/form1')) { cy.visit('/public/form1'); cy.wait(time_wait); }
+      });
     }
     else if (func.getViewByComponent(pagina) === 2) {
-      cy.visit('/logged/form2')
-      cy.contains('h1', 'Form2').should('be.visible')
+      cy.url().then((url) => {
+        if (!url.includes('/public/form2')) { cy.visit('/public/form2'); cy.wait(time_wait); }
+      });
     }
-    cy.wait(time_wait)
   },
 
   avaliacao(cor) {
